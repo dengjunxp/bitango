@@ -17,8 +17,6 @@ from django.contrib import admin
 from django.urls import path, include
 from django.http import HttpResponse
 
-from chart import views as chart_views
-
 
 def index(request):
     return HttpResponse('首页')
