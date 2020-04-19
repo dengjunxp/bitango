@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.shortcuts import render
 
 
 def chart_list(request):
@@ -19,4 +20,5 @@ def chart_detail(request, instrument_id, interval):
     :return:
     """
     text = 'visiting instrument: %s | %s ' % (interval, instrument_id)
-    return HttpResponse(text)
+    # return HttpResponse(text)
+    return render(request, 'test.html')
