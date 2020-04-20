@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.shortcuts import render
 
 
 def chart_list(request):
@@ -11,14 +10,14 @@ def chart_list(request):
     """
     return HttpResponse('chart list')
 
-def chart_detail(request, instrument_id, interval):
+def chart_kline(request, instrument_id, rule):
     """
     图标详情
     :param request:
-    :param interval: 重采样间隔时间
+    :param rule: 重采样间隔时间
     :param instrument_id:
     :return:
     """
-    text = 'visiting instrument: %s | %s ' % (interval, instrument_id)
+
     # return HttpResponse(text)
-    return render(request, 'test.html')
+    return render(request, 'chart/kline.html')

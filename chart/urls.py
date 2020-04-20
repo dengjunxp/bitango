@@ -5,5 +5,5 @@ from . import views
 urlpatterns = [
     path('', views.chart_list),
     # 图表
-    path('detail/<instrument_id>/<interval>/', views.chart_detail)
+    path('detail/<instrument_id>/<rule>/', views.chart_kline())
 ]
