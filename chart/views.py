@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from bitango.mongo.mongo_handle import MongoHandle
+from django.conf import settings
 
 
 def chart_list(request):
@@ -18,6 +20,8 @@ def chart_kline(request, instrument_id, rule):
     :param instrument_id:
     :return:
     """
-
-    # return HttpResponse(text)
-    return render(request, 'chart/kline.html')
+    instrument_id = 'BCH-USD-SWAP'
+    # result = MongoHandle.get_swap_from_time(instrument_id=instrument_id, as_df=False)
+    # print(result)
+    return HttpResponse('hello world')
+    # return render(request, 'chart/kline.html')

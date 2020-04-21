@@ -1,2 +1,3 @@
 django
-mongoengine
+pymongo
+pandas
