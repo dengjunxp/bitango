@@ -3,11 +3,11 @@
 import time
 import pandas as pd
 from pymongo import MongoClient
-from django.conf import settings
 
 class MongoHandle:
     _client = None
-    _mongo_host = '192.168.10.10'
+    # _mongo_host = '192.168.10.10'
+    _mongo_host = '192.168.2.110'
     _mongo_port = '27017'
 
     @classmethod
@@ -84,7 +84,7 @@ class MongoHandle:
 
         temp = collection.find(condition).sort([('time', time_sort)])
         if limit > 0:
-            temp = temp.limit(kline_length)
+            temp = temp.limit(limit)
         # 添加结果
         for item in temp:
             result.append({
