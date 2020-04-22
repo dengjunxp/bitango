@@ -4,7 +4,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from bitango.mongo.mongo_handle import MongoHandle
 from chart.lib.paint import Paint
-
+from chart.lib.pandas_function import PandasFunction as pf
+from bitango.lib.common import TimeOption
 
 def chart_list(request):
     """
@@ -14,21 +15,26 @@ def chart_list(request):
     """
     return HttpResponse('chart list')
 
-def chart_kline(request, instrument_id, rule):
+def chart_kline(request, instrument_id, rule_type, start_time):
     """
     图表详情
     :param request:
-    :param rule: 重采样间隔时间
-    :param instrument_id:
+    :param instrument_id: 币对
+    :param rule_type: 重采样间隔时间
+    :param start_time: 开始时间（字符串，起始时间：2020-01-05 13:49:00，时间戳：1578203340）
     :return:
     """
-    instrument_id = 'BCH-USD-SWAP'
-    result = MongoHandle.get_swap_from_time(instrument_id=instrument_id, as_df=False)
-    # for item in result:
-    #     print(item)
+    # instrument_id = 'BCH-USD-SWAP'
+    # 从采集开始的两天数据
+    # start_time = 1578203340
+    start_time = TimeOption.string2timestamp(start_time, format_str='%Y-%m-%d %H:%M:%S')
+    swap_df = MongoHandle.get_swap_from_time(instrument_id=instrument_id, start_time=start_time, as_df=True)
+
+    # 重采样
+    swap_df = pf.resample(df=swap_df, rule_type=rule_type)
 
     template_name = 'kline.html'
-    Paint.kline(result=result, file_name=template_name, title=instrument_id)
+    Paint.kline(result=swap_df, file_name=template_name, title=instrument_id, is_df=True)
 
     context = {
     }

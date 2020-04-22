@@ -6,8 +6,8 @@ from pymongo import MongoClient
 
 class MongoHandle:
     _client = None
-    # _mongo_host = '192.168.10.10'
-    _mongo_host = '192.168.2.110'
+    _mongo_host = '192.168.10.10'
+    # _mongo_host = '192.168.2.110'
     _mongo_port = '27017'
 
     @classmethod
@@ -104,3 +104,4 @@ class MongoHandle:
             df['candle_begin_time'] = pd.to_datetime(df['candle_begin_time'], format='%Y-%m-%d %H:%M:%S')
             return df
         return result
+
