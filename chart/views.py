@@ -19,14 +19,11 @@ def chart_kline(request, instrument_id, rule_type, start_time):
     """
     图表详情
     :param request:
-    :param instrument_id: 币对
+    :param instrument_id: 币对（如：BCH-USD-SWAP）
     :param rule_type: 重采样间隔时间
     :param start_time: 开始时间（字符串，起始时间：2020-01-05 13:49:00，时间戳：1578203340）
     :return:
     """
-    # instrument_id = 'BCH-USD-SWAP'
-    # 从采集开始的两天数据
-    # start_time = 1578203340
     start_time = TimeOption.string2timestamp(start_time, format_str='%Y-%m-%d %H:%M:%S')
     swap_df = MongoHandle.get_swap_from_time(instrument_id=instrument_id, start_time=start_time, as_df=True)
 
