@@ -6,8 +6,8 @@ from pymongo import MongoClient
 
 class MongoHandle:
     _client = None
-    # _mongo_host = '192.168.10.10'
-    _mongo_host = '192.168.2.110'
+    _mongo_host = '192.168.10.10'
+    # _mongo_host = '192.168.2.110'
     _mongo_port = '27017'
 
     @classmethod
