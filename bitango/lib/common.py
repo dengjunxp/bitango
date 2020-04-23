@@ -2,6 +2,7 @@
 
 import time
 import datetime
+import socket
 
 
 def get_dict(value, *param):
@@ -21,8 +22,10 @@ def get_dict(value, *param):
             return None
     return result
 
-
-class TimeOption:
+class TimeOperation:
+    """
+    时间转换
+    """
     @classmethod
     def string2datetime(cls, time_str, format_str, hours=0):
         """
@@ -100,6 +103,33 @@ class TimeOption:
             if key == 'second':
                 time_array = time_array.replace(second=val)
         return time_array
+
+class NetOperation:
+    """
+    网络操作
+    """
+    @classmethod
+    def get_host_ip(cls):
+        """
+        获取本机IP地址
+        :return:
+        """
+        try:
+            s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+            s.connect(('114.114.114.114', 80))
+            ip = s.getsockname()[0]
+        finally:
+            s.close()
+        return ip
+
+    @classmethod
+    def get_net_segment(cls):
+        """获取网段"""
+        host_ip = cls.get_host_ip()
+        ip_arr = host_ip.split('.')
+        ip_arr.pop(len(ip_arr) - 1)
+        host_segment = '.'.join(ip_arr)
+        return host_segment
 
 class FundCalculator:
     """

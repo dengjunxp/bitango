@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from bitango.mongo.mongo_handle import MongoHandle
 from chart.lib.paint import Paint
 from chart.lib.pandas_function import PandasFunction as pf
-from bitango.lib.common import TimeOption
+from bitango.lib.common import TimeOperation
 
 def chart_list(request):
     """
@@ -24,7 +24,7 @@ def chart_kline(request, instrument_id, rule_type, start_time):
     :param start_time: 开始时间（字符串，起始时间：2020-01-05 13:49:00，时间戳：1578203340）
     :return:
     """
-    start_time = TimeOption.string2timestamp(start_time, format_str='%Y-%m-%d %H:%M:%S')
+    start_time = TimeOperation.string2timestamp(start_time, format_str='%Y-%m-%d %H:%M:%S')
     swap_df = MongoHandle.get_swap_from_time(instrument_id=instrument_id, start_time=start_time, as_df=True)
 
     # 重采样

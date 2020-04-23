@@ -3,12 +3,19 @@
 import time
 import pandas as pd
 from pymongo import MongoClient
+from bitango.lib.common import NetOperation
 
 class MongoHandle:
     _client = None
-    _mongo_host = '192.168.10.10'
-    # _mongo_host = '192.168.2.110'
-    _mongo_port = '27017'
+
+    @classmethod
+    def get_conf(cls):
+        net_segment = NetOperation.get_net_segment()
+        if net_segment in ['192.168.10', '192.168.0']:
+            return ['192.168.10.10', '27017']
+
+        elif net_segment in ['192.168.2']:
+            return ['192.168.2.110', '27017']
 
     @classmethod
     def get_instance(cls):
@@ -18,9 +25,8 @@ class MongoHandle:
 
     @classmethod
     def get_mongo_handler(cls):
-        host = cls._mongo_host
-        port = cls._mongo_port
-        db_name = 'test_db'
+        host, port = cls.get_conf()
+        db_name = ''
 
         uri = 'mongodb://{host}:{port}/{db_name}?authSource={auth_source}' \
             .format(host=host, port=port, db_name=db_name, auth_source=db_name)
