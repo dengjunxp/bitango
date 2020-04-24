@@ -51,6 +51,7 @@ class Paint(object):
                 # line
                 line_data.append(240)
 
+        # K线
         kline = (
             Kline()
             .add_xaxis(time_list)
@@ -67,10 +68,12 @@ class Paint(object):
                 title_opts=opts.TitleOpts(title=title),
             )
         )
+        # 均线
         line = (
             Line()
             .add_xaxis(time_list)
             .add_yaxis("MA30", line_data)
+            .set_series_opts(label_opts=opts.LabelOpts(is_show=False))
         )
         kline.overlap(line)
         kline.render(path=cls.get_save_path(file_name))

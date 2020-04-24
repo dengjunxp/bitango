@@ -42,7 +42,7 @@ class TimeOperation:
         return time_array
 
     @classmethod
-    def string2timestamp(cls, time_str, format_str, hours=0):
+    def string2timestamp(cls, time_str, format_str='%Y-%m-%d %H:%M:%S', hours=0):
         """
         字符串转换为时间戳
         :param time_str:
@@ -50,8 +50,11 @@ class TimeOperation:
         :param hours:
         :return:
         """
+        print(time_str)
+        print(format_str)
+        print(hours)
         time_array = cls.string2datetime(time_str, format_str, hours)
-        return time.mktime(time_array.timetuple())
+        return cls.datetime2timestamp(time_array)
 
     @classmethod
     def datetime2timestamp(cls, time_array):
@@ -60,7 +63,8 @@ class TimeOperation:
         :param time_array:
         :return:
         """
-        return time.mktime(time_array.timetuple())
+        timestamp = time.mktime(time_array.timetuple())
+        return int(timestamp)
 
     @classmethod
     def datetime2string(cls, date_time, format_str="%Y-%m-%d %H:%M:%S"):

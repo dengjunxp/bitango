@@ -24,7 +24,8 @@ def chart_kline(request, instrument_id, rule_type, start_time):
     :param start_time: 开始时间（字符串，起始时间：2020-01-05 13:49:00，时间戳：1578203340）
     :return:
     """
-    start_time = TimeOperation.string2timestamp(start_time, format_str='%Y-%m-%d %H:%M:%S')
+    start_time = TimeOperation.string2timestamp(start_time)
+    print(start_time)
     swap_df = MongoHandle.get_swap_from_time(instrument_id=instrument_id, start_time=start_time, as_df=True)
 
     # 重采样

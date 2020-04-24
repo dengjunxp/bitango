@@ -1,7 +1,10 @@
 # encoding=utf-8
 
 import time
-
+from bitango.lib.common import TimeOperation
+time_str = '2020-04-24 18:00:00'
+timestamp = TimeOperation.string2timestamp(time_str)
+print(timestamp)
 
 # time_str = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(1578376440))
 # print(time_str)
