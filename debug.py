@@ -7,11 +7,10 @@ import time
 # print(time_str)
 
 # import socket
-#
 # def get_host_ip():
 #     try:
 #         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-#         s.connect(('114.114.114.114', 80))
+#         s.connect(('192.168.10.10', 80))
 #         ip = s.getsockname()[0]
 #     finally:
 #         s.close()

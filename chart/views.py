@@ -29,7 +29,9 @@ def chart_kline(request, instrument_id, rule_type, start_time):
 
     # 重采样
     swap_df = pf.resample(df=swap_df, rule_type=rule_type)
-
+    # 指标
+    swap_df['ma7'] = swap_df['close'].rolling(7, min_periods=1).mean()
+    # 画图
     template_name = 'kline.html'
     Paint.kline(result=swap_df, file_name=template_name, title=instrument_id, is_df=True)
 

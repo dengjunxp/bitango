@@ -11,11 +11,13 @@ class MongoHandle:
     @classmethod
     def get_conf(cls):
         net_segment = NetOperation.get_net_segment()
-        if net_segment in ['192.168.10', '192.168.0']:
-            return ['192.168.10.10', '27017']
 
-        elif net_segment in ['192.168.2']:
+
+        if net_segment in ['192.168.2']:
             return ['192.168.2.110', '27017']
+        # elif net_segment in ['192.168.10', '192.168.0']:
+        else:
+            return ['192.168.10.10', '27017']
 
     @classmethod
     def get_instance(cls):
@@ -26,6 +28,8 @@ class MongoHandle:
     @classmethod
     def get_mongo_handler(cls):
         host, port = cls.get_conf()
+        # host = '192.168.10.10'
+        # port = '27017'
         db_name = ''
 
         uri = 'mongodb://{host}:{port}/{db_name}?authSource={auth_source}' \
