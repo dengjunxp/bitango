@@ -8,14 +8,14 @@ from pyecharts.charts import Kline, Line
 class Paint(object):
 
     @classmethod
-    def kline(cls, result, file_name, title="标题", is_df=False, indicator={}):
+    def kline(cls, result, file_name, title="标题", is_df=False, indicator_index={}):
         """
         绘制K线
         :param result: 数据
         :param file_name: 保存到指定文件
         :param title: 标题
         :param is_df: 是否是DataFrame类型数据
-        :param indicator: 指标 {'ma20': 6} -- {'指标': '索引'}
+        :param indicator_index: 指标 {'ma20': 6} -- {'指标': '索引'}
         :return:
         """
         time_list = []
@@ -36,7 +36,7 @@ class Paint(object):
                 # 时间
                 time_list.append(str(item[0]))
                 # line
-                line_data.append(item[6])
+                line_data.append(item[indicator_index['ma20']])
         else:
             for item in result:
                 # 数据
@@ -48,8 +48,6 @@ class Paint(object):
                 ])
                 # 时间
                 time_list.append(str(item['candle_begin_time']))
-                # line
-                line_data.append(240)
 
         # K线
         kline = (
