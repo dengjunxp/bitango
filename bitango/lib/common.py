@@ -50,9 +50,6 @@ class TimeOperation:
         :param hours:
         :return:
         """
-        print(time_str)
-        print(format_str)
-        print(hours)
         time_array = cls.string2datetime(time_str, format_str, hours)
         return cls.datetime2timestamp(time_array)
 

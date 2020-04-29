@@ -74,7 +74,21 @@ class Paint(object):
             .set_series_opts(label_opts=opts.LabelOpts(is_show=False))
         )
         kline.overlap(line)
-        kline.render(path=cls.get_save_path(file_name))
+        return kline.render(path=cls.get_save_path(file_name))
+
+    @classmethod
+    def professional_kline(cls, result, file_name, title="标题", is_df=False, indicator_index={}):
+        """
+        绘制专业的K线
+        :param result: 数据
+        :param file_name: 保存到指定文件
+        :param title: 标题
+        :param is_df: 是否是DataFrame类型数据
+        :param indicator_index: 指标 {'ma20': 6} -- {'指标': '索引'}
+        :return:
+        """
+        pass
+
 
     @classmethod
     def get_save_path(cls, file_name):
