@@ -1,4 +1,6 @@
+talib
 django
 pymongo
 pandas
 pyecharts
+numpy

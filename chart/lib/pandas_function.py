@@ -1,5 +1,7 @@
 # encoding=utf-8
 
+import pandas as pd
+
 class PandasFunction(object):
 
     @classmethod
@@ -24,3 +26,14 @@ class PandasFunction(object):
         df = period_df[['candle_begin_time', 'open', 'high', 'low', 'close', 'volume']]
         return df
 
+    @classmethod
+    def display_init(cls):
+        """
+        初始化pandas参数
+        :return:
+        """
+        # 不换行显示
+        pd.set_option('expand_frame_repr', False)
+        # pd.set_option('display.max_rows', 100)
+        # pd.set_option('display.min_rows', 100)
+        pd.set_option('display.max_rows', None)

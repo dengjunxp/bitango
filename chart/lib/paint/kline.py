@@ -38,7 +38,8 @@ class PaintKline(object):
                 # 时间
                 time_list.append(str(item[0]))
                 # line
-                line_data.append(item[indicator_index['ma20']])
+                if 'ma20' in indicator_index:
+                    line_data.append(item[indicator_index['ma20']])
         else:
             for item in result:
                 # 数据

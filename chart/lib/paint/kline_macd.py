@@ -319,8 +319,8 @@ class PaintKlineMacd:
         :param echarts_data:
         :return:
         """
-        # data = cls.split_data(origin_data=echarts_data)
-        data = cls.split_data(origin_data=cls.echarts_data)
+        data = cls.split_data(origin_data=echarts_data)
+        # data = cls.split_data(origin_data=cls.echarts_data)
         return cls.draw_chart(data)
 
     @classmethod
