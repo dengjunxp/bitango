@@ -174,13 +174,10 @@ class PaintKlineMacd:
                 ),
                 tooltip_opts=opts.TooltipOpts(trigger="axis", axis_pointer_type="line"),
                 datazoom_opts=[
-                    opts.DataZoomOpts(
-                        is_show=False, type_="inside", xaxis_index=[0, 0], range_end=100
-                    ),
-                    opts.DataZoomOpts(
-                        is_show=True, xaxis_index=[0, 1], pos_top="97%", range_end=100
-                    ),
+                    opts.DataZoomOpts(is_show=False, type_="inside", xaxis_index=[0, 0], range_end=100),
+                    opts.DataZoomOpts(is_show=True, xaxis_index=[0, 1], pos_top="97%", range_end=100),
                     opts.DataZoomOpts(is_show=False, xaxis_index=[0, 2], range_end=100),
+                    opts.DataZoomOpts(is_show=False, xaxis_index=[0, 3], range_end=100),
                 ],
                 # 三个图的 axis 连在一块
                 # axispointer_opts=opts.AxisPointerOpts(
