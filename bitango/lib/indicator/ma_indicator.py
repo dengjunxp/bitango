@@ -1,5 +1,6 @@
 # encoding=utf-8
 
+
 class MaIndicator:
     @classmethod
     def get_value(cls, df, ma_name):
