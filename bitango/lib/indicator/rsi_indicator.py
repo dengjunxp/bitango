@@ -13,7 +13,8 @@ class RsiIndicator:
         :return:
         """
         rsi_num = int(rsi_name.replace('rsi', ''))
-        if rsi_num <= 0:
-            return
-        df[rsi_name] = ta.RSI(df['close'], timeperiod=rsi_num)
+        if rsi_num > 0:
+            df[rsi_name] = ta.RSI(df['close'], timeperiod=rsi_num)
+        return
+
 

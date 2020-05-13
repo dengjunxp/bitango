@@ -12,7 +12,8 @@ class EmaIndicator:
         :param ema_name:
         :return:
         """
-        ma_num = int(ema_name.replace('ma', ''))
-        if ma_num <= 0:
-            return
-        df[ema_name] = df['close'].rolling(ma_num, min_periods=1).mean()
+        ema_num = int(ema_name.replace('ema', ''))
+        if ema_num > 0:
+            df[ema_name] = ta.EMA(df['close'], timeperiod=ema_num)
+        return
+
