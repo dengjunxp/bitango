@@ -32,6 +32,8 @@ class PaintKlineMacd:
         difs = []
         deas = []
         rsi6 = []
+        ema10 = []
+        ema144 = []
         # 数据加入对应的列表中
         for i in range(len(origin_data)):
             datas.append(origin_data[i][1:])
@@ -41,6 +43,8 @@ class PaintKlineMacd:
             difs.append(origin_data[i][8])
             deas.append(origin_data[i][9])
             rsi6.append(origin_data[i][10])
+            ema10.append(origin_data[i][11])
+            ema144.append(origin_data[i][12])
         # 交易量转换为整数
         vols = [int(v) for v in vols]
 
@@ -52,6 +56,8 @@ class PaintKlineMacd:
             "difs": difs,
             "deas": deas,
             "rsi6": rsi6,
+            "ema10": ema10,
+            "ema144": ema144,
         }
 
     @classmethod
@@ -113,20 +119,6 @@ class PaintKlineMacd:
         return mark_line_data
 
     @classmethod
-    def calculate_ma(cls, day_count: int, data):
-        result: List[Union[float, str]] = []
-
-        for i in range(len(data["times"])):
-            if i < day_count:
-                result.append("-")
-                continue
-            sum_total = 0.0
-            for j in range(day_count):
-                sum_total += float(data["datas"][i - j][1])
-            result.append(abs(float("%.2f" % (sum_total / day_count))))
-        return result
-
-    @classmethod
     def draw_chart(cls, data):
         kline = (
             Kline()
@@ -178,6 +170,7 @@ class PaintKlineMacd:
                     opts.DataZoomOpts(is_show=True, xaxis_index=[0, 1], pos_top="97%", range_end=100),
                     opts.DataZoomOpts(is_show=False, xaxis_index=[0, 2], range_end=100),
                     opts.DataZoomOpts(is_show=False, xaxis_index=[0, 3], range_end=100),
+
                 ],
                 # 三个图的 axis 连在一块
                 # axispointer_opts=opts.AxisPointerOpts(
@@ -191,11 +184,20 @@ class PaintKlineMacd:
         kline_line = (
             Line()
             .add_xaxis(xaxis_data=data["times"])
+            # EMA10
             .add_yaxis(
-                series_name="MA5",
-                y_axis=cls.calculate_ma(day_count=5, data=data),
-                is_smooth=True,
-                linestyle_opts=opts.LineStyleOpts(opacity=0.5),
+                series_name="EMA10",
+                y_axis=data["ema10"],
+                xaxis_index=2,
+                yaxis_index=2,
+                label_opts=opts.LabelOpts(is_show=False),
+            )
+            # EMA144
+            .add_yaxis(
+                series_name="EMA144",
+                y_axis=data["ema144"],
+                xaxis_index=2,
+                yaxis_index=2,
                 label_opts=opts.LabelOpts(is_show=False),
             )
             .set_global_opts(
@@ -345,7 +347,7 @@ class PaintKlineMacd:
             .set_global_opts(legend_opts=opts.LegendOpts(is_show=False))
         )
 
-        # 最下面的柱状图和折线图
+        # MACD
         overlap_bar_line = bar_2.overlap(line_2)
 
         # 最后的 Grid
@@ -358,27 +360,27 @@ class PaintKlineMacd:
         # K线图和 MA5 的折线图
         grid_chart.add(
             overlap_kline_line,
-            grid_opts=opts.GridOpts(pos_left="3%", pos_right="1%", height="50%"),
+            grid_opts=opts.GridOpts(pos_left="3%", pos_right="1%", height="45%"),
         )
         # Volumn 柱状图
         grid_chart.add(
             bar_1,
             grid_opts=opts.GridOpts(
-                pos_left="3%", pos_right="1%", pos_top="61%", height="10%"
+                pos_left="3%", pos_right="1%", pos_top="56%", height="10%"
             ),
         )
         # MACD DIFS DEAS
         grid_chart.add(
             overlap_bar_line,
             grid_opts=opts.GridOpts(
-                pos_left="3%", pos_right="1%", pos_top="72%", height="14%"
+                pos_left="3%", pos_right="1%", pos_top="68%", height="14%"
             ),
         )
         # rsi6
         grid_chart.add(
             rsi6_line,
             grid_opts=opts.GridOpts(
-                pos_left="3%", pos_right="1%", pos_top="86%", height="10%"
+                pos_left="3%", pos_right="1%", pos_top="88%", height="10%"
             ),
         )
         return grid_chart.render_embed()

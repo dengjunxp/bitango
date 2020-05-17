@@ -5,13 +5,13 @@ import pandas as pd
 from pymongo import MongoClient
 from bitango.lib.common import NetOperation
 
+
 class MongoHandle:
     _client = None
 
     @classmethod
     def get_conf(cls):
         net_segment = NetOperation.get_net_segment()
-
 
         if net_segment in ['192.168.2']:
             return ['192.168.2.110', '27017']

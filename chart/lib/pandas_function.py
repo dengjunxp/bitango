@@ -2,6 +2,7 @@
 
 import pandas as pd
 
+
 class PandasFunction(object):
 
     @classmethod

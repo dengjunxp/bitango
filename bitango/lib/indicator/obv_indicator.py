@@ -11,6 +11,7 @@ class ObvIndicator:
         获取能量潮指标
         :return:
         """
+        pass
         # m = 30
         # df.loc[df['close'] > df['close'].shift(1), 'obv_va'] = df['volume']
         # df.loc[df['close'] < df['close'].shift(1), 'obv_va'] = -df['volume']

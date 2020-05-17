@@ -11,6 +11,9 @@ from bitango.lib.common import TimeOperation
 
 from bitango.lib.indicator.macd_indicator import MacdIndicator
 from bitango.lib.indicator.rsi_indicator import RsiIndicator
+from bitango.lib.indicator.ema_indicator import EmaIndicator
+
+pf.display_init()
 
 
 def chart_list(request):
@@ -32,7 +35,7 @@ def chart_kline(request, instrument_id, rule_type, start_time):
     :return:
     """
     # 公司数据起始时间：2020-01-05 13:49:00
-    # 家中数据起始时间：remain waiting
+    # 转时间戳
     start_time = TimeOperation.string2timestamp(start_time)
     swap_df = MongoHandle.get_swap_from_time(instrument_id=instrument_id, start_time=start_time, as_df=True)
 
@@ -68,25 +71,28 @@ def chart_macd(request, instrument_id, rule_type, start_time):
     :return:
     """
     # 公司数据起始时间：2020-01-05 13:49:00
-    # 家中数据起始时间：remain waiting
+    # 转时间戳
     start_time = TimeOperation.string2timestamp(start_time)
     swap_df = MongoHandle.get_swap_from_time(instrument_id=instrument_id, start_time=start_time, as_df=True)
 
     # 重采样
     swap_df = pf.resample(df=swap_df, rule_type=rule_type)
 
-
     # 指标
-    # extremum
+    # 极值
     swap_df['extremum'] = 0
-    # MACD
+
+    # MACD: index -> 7 - 9
     MacdIndicator.get_value(swap_df)
-    # RSI6
+    # RSI6: index 10
     RsiIndicator.get_value(df=swap_df, rsi_name='rsi6')
+    # EMA10: index 11
+    EmaIndicator.get_value(df=swap_df, ema_name='ema10')
+    # EMA144: index 12
+    EmaIndicator.get_value(df=swap_df, ema_name='ema144')
 
     # 去除开头行的NaN
     swap_df.dropna(axis=0, how='any', inplace=True)
-    # pf.display_init()
     # print(swap_df)
 
     # 转换为列表
