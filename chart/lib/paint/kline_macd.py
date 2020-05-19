@@ -32,7 +32,6 @@ class PaintKlineMacd:
         difs = []
         deas = []
         rsi6 = []
-        ema10 = []
         ema144 = []
         # 数据加入对应的列表中
         for i in range(len(origin_data)):
@@ -43,8 +42,7 @@ class PaintKlineMacd:
             difs.append(origin_data[i][8])
             deas.append(origin_data[i][9])
             rsi6.append(origin_data[i][10])
-            ema10.append(origin_data[i][11])
-            ema144.append(origin_data[i][12])
+            ema144.append(origin_data[i][11])
         # 交易量转换为整数
         vols = [int(v) for v in vols]
 
@@ -56,7 +54,6 @@ class PaintKlineMacd:
             "difs": difs,
             "deas": deas,
             "rsi6": rsi6,
-            "ema10": ema10,
             "ema144": ema144,
         }
 
@@ -184,14 +181,14 @@ class PaintKlineMacd:
         kline_line = (
             Line()
             .add_xaxis(xaxis_data=data["times"])
-            # EMA10
-            .add_yaxis(
-                series_name="EMA10",
-                y_axis=data["ema10"],
-                xaxis_index=2,
-                yaxis_index=2,
-                label_opts=opts.LabelOpts(is_show=False),
-            )
+            # # EMA10
+            # .add_yaxis(
+            #     series_name="EMA10",
+            #     y_axis=data["ema10"],
+            #     xaxis_index=2,
+            #     yaxis_index=2,
+            #     label_opts=opts.LabelOpts(is_show=False),
+            # )
             # EMA144
             .add_yaxis(
                 series_name="EMA144",
@@ -360,27 +357,27 @@ class PaintKlineMacd:
         # K线图和 MA5 的折线图
         grid_chart.add(
             overlap_kline_line,
-            grid_opts=opts.GridOpts(pos_left="3%", pos_right="1%", height="45%"),
+            grid_opts=opts.GridOpts(pos_left="4%", pos_right="1%", height="45%"),
         )
         # Volumn 柱状图
         grid_chart.add(
             bar_1,
             grid_opts=opts.GridOpts(
-                pos_left="3%", pos_right="1%", pos_top="56%", height="10%"
+                pos_left="4%", pos_right="1%", pos_top="56%", height="10%"
             ),
         )
         # MACD DIFS DEAS
         grid_chart.add(
             overlap_bar_line,
             grid_opts=opts.GridOpts(
-                pos_left="3%", pos_right="1%", pos_top="68%", height="14%"
+                pos_left="4%", pos_right="1%", pos_top="68%", height="14%"
             ),
         )
         # rsi6
         grid_chart.add(
             rsi6_line,
             grid_opts=opts.GridOpts(
-                pos_left="3%", pos_right="1%", pos_top="88%", height="10%"
+                pos_left="4%", pos_right="1%", pos_top="84%", height="10%"
             ),
         )
         return grid_chart.render_embed()
