@@ -85,7 +85,11 @@ def chart_macd(request, instrument_id, rule_type, start_time):
     MacdIndicator.get_value(swap_df)
     # RSI6[10]
     RsiIndicator.get_value(df=swap_df, rsi_name='rsi6')
-    # EMA144[11]
+    # RSI12[11]
+    RsiIndicator.get_value(df=swap_df, rsi_name='rsi12')
+    # RSI24[12]
+    RsiIndicator.get_value(df=swap_df, rsi_name='rsi24')
+    # EMA144[13]
     EmaIndicator.get_value(df=swap_df, ema_name='ema144')
 
     # 去除开头行的NaN

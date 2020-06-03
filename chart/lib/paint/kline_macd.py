@@ -32,6 +32,8 @@ class PaintKlineMacd:
         difs = []
         deas = []
         rsi6 = []
+        rsi12 = []
+        rsi24 = []
         ema144 = []
         # 数据加入对应的列表中
         for i in range(len(origin_data)):
@@ -42,7 +44,9 @@ class PaintKlineMacd:
             difs.append(origin_data[i][8])
             deas.append(origin_data[i][9])
             rsi6.append(origin_data[i][10])
-            ema144.append(origin_data[i][11])
+            rsi12.append(origin_data[i][11])
+            rsi24.append(origin_data[i][12])
+            ema144.append(origin_data[i][13])
         # 交易量转换为整数
         vols = [int(v) for v in vols]
 
@@ -54,6 +58,8 @@ class PaintKlineMacd:
             "difs": difs,
             "deas": deas,
             "rsi6": rsi6,
+            "rsi12": rsi12,
+            "rsi24": rsi24,
             "ema144": ema144,
         }
 
@@ -331,12 +337,26 @@ class PaintKlineMacd:
             .set_global_opts(legend_opts=opts.LegendOpts(is_show=False))
         )
 
-        rsi6_line = (
+        rsi_line = (
             Line()
             .add_xaxis(xaxis_data=data["times"])
             .add_yaxis(
                 series_name="rsi6",
                 y_axis=data["rsi6"],
+                xaxis_index=2,
+                yaxis_index=2,
+                label_opts=opts.LabelOpts(is_show=False),
+            )
+            .add_yaxis(
+                series_name="rsi12",
+                y_axis=data["rsi12"],
+                xaxis_index=2,
+                yaxis_index=2,
+                label_opts=opts.LabelOpts(is_show=False),
+            )
+            .add_yaxis(
+                series_name="rsi24",
+                y_axis=data["rsi24"],
                 xaxis_index=2,
                 yaxis_index=2,
                 label_opts=opts.LabelOpts(is_show=False),
@@ -375,7 +395,7 @@ class PaintKlineMacd:
         )
         # rsi6
         grid_chart.add(
-            rsi6_line,
+            rsi_line,
             grid_opts=opts.GridOpts(
                 pos_left="4%", pos_right="1%", pos_top="84%", height="10%"
             ),
