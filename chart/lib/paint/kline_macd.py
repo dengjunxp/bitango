@@ -35,6 +35,10 @@ class PaintKlineMacd:
         rsi12 = []
         rsi24 = []
         ema144 = []
+        boll_median = []
+        boll_upper = []
+        boll_lower = []
+
         # 数据加入对应的列表中
         for i in range(len(origin_data)):
             datas.append(origin_data[i][1:])
@@ -47,6 +51,10 @@ class PaintKlineMacd:
             rsi12.append(origin_data[i][11])
             rsi24.append(origin_data[i][12])
             ema144.append(origin_data[i][13])
+            boll_median.append(origin_data[i][14])
+            boll_upper.append(origin_data[i][16])
+            boll_lower.append(origin_data[i][17])
+
         # 交易量转换为整数
         vols = [int(v) for v in vols]
 
@@ -61,6 +69,9 @@ class PaintKlineMacd:
             "rsi12": rsi12,
             "rsi24": rsi24,
             "ema144": ema144,
+            "boll_median": boll_median,
+            "boll_upper": boll_upper,
+            "boll_lower": boll_lower,
         }
 
     @classmethod
@@ -195,10 +206,35 @@ class PaintKlineMacd:
             #     yaxis_index=2,
             #     label_opts=opts.LabelOpts(is_show=False),
             # )
+
             # EMA144
+            # .add_yaxis(
+            #     series_name="EMA144",
+            #     y_axis=data["ema144"],
+            #     xaxis_index=2,
+            #     yaxis_index=2,
+            #     label_opts=opts.LabelOpts(is_show=False),
+            # )
+            # boll_median
             .add_yaxis(
-                series_name="EMA144",
-                y_axis=data["ema144"],
+                series_name="median",
+                y_axis=data["boll_median"],
+                xaxis_index=2,
+                yaxis_index=2,
+                label_opts=opts.LabelOpts(is_show=False),
+            )
+            # boll_upper
+            .add_yaxis(
+                series_name="upper",
+                y_axis=data["boll_upper"],
+                xaxis_index=2,
+                yaxis_index=2,
+                label_opts=opts.LabelOpts(is_show=False),
+            )
+            # boll_lower
+            .add_yaxis(
+                series_name="lower",
+                y_axis=data["boll_lower"],
                 xaxis_index=2,
                 yaxis_index=2,
                 label_opts=opts.LabelOpts(is_show=False),

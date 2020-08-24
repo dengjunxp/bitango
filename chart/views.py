@@ -12,7 +12,10 @@ from bitango.lib.common import TimeOperation
 from bitango.lib.indicator.macd_indicator import MacdIndicator
 from bitango.lib.indicator.rsi_indicator import RsiIndicator
 from bitango.lib.indicator.ema_indicator import EmaIndicator
+from bitango.lib.indicator.boll_indicator import BollIndicator
 
+
+# pandas 参数初始化
 pf.display_init()
 
 
@@ -91,13 +94,17 @@ def chart_macd(request, instrument_id, rule_type, start_time):
     RsiIndicator.get_value(df=swap_df, rsi_name='rsi24')
     # EMA144[13]
     EmaIndicator.get_value(df=swap_df, ema_name='ema144')
+    # 布林带
+    BollIndicator.get_value(df=swap_df, median_rolling=20, coefficient=2)
+    print(swap_df)
 
     # 去除开头行的NaN
     # print(swap_df)
     swap_df.dropna(axis=0, how='any', inplace=True)
 
-    # 转换为列表
+    # 将DataFrame转换为列表
     swap_arr = swap_df.values.tolist()
+
     for item in swap_arr:
         # datatime 转 string
         item[0] = TimeOperation.datetime2string(item[0])
